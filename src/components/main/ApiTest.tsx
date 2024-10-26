@@ -10,11 +10,6 @@ const AxiosComponent = () => {
     const [res, setRes] = useState(null);
 
     const handleOnClick = () => {
-        if (IS_DEV) {
-            console.log("Running in development mode");
-        } else {
-            console.log("Running in production mode");
-        }
 
         const BASE_URL = IS_DEV ? "http://localhost:3000" : "https://denonextapp.deno.dev/";
 
