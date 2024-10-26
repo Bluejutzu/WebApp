@@ -11,7 +11,7 @@ const AxiosComponent = () => {
 
     const handleOnClick = () => {
 
-        const BASE_URL = IS_DEV ? "http://localhost:3000" : "https://denonextapp.deno.dev/";
+        const BASE_URL = IS_DEV ? "http://localhost:3000" : "https://bluejutzu.deno.dev";
 
         axios
             .get(BASE_URL + "/api")
