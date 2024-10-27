@@ -1,5 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { buttonVariants } from "@/components/ui/button";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
+import Image from "next/image";
+
+let user: KindeUser<Record<string, string>> | null;
 
 export default function Home() {
     const IS_DEV = process.env.NEXT_PUBLIC_ENVIRONMENT === "development";
@@ -9,8 +17,13 @@ export default function Home() {
     } else {
         console.log("Running in production mode");
     }
+    const { isAuthenticated, getUser } = useKindeBrowserClient();
+    if (isAuthenticated) {
+        user = getUser();
+        console.log(user);
+    }
     return (
-        <header className="bg-gradient-to-r from-primary to-secondary shadow-md rounded-md">
+        <header className="bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none">
             <div className="container mx-auto flex items-center justify-between py-4 px-6">
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600">
@@ -18,20 +31,58 @@ export default function Home() {
                 </Link>
 
                 {/* Navigation Links */}
-                <nav className="hidden md:flex space-x-8 font-semibold">
-                    <Link href="/" className="text-black hover:text-blue-500">
+                <nav className="hidden md:flex space-x-8 font-extrabold text-lg">
+                    <Link href="/" className="text-black hover:text-zinc-700 hover:underline duration-300">
                         Home
                     </Link>
-                    <Link href="/about" className="text-black hover:text-blue-500">
+                    <Link href="/about" className="text-black hover:text-zinc-700 duration-300 hover:underline">
                         About
                     </Link>
                 </nav>
 
                 {/* CTA Button */}
-
-                <RegisterLink>Sign up</RegisterLink>
-                <LoginLink>Login in</LoginLink>
-
+                <div className="flex-wrap space-x-4 text-lg font-semibold">
+                    {isAuthenticated ? (
+                        <div className="flex wrap space-x-2">
+                            <div>
+                                <>
+                                    <Link href={`/dashboard/${user?.id}`}>
+                                        <Image
+                                            src={`${user?.picture}`}
+                                            alt={`${user?.given_name}_profile`}
+                                            width={80}
+                                            height={80}
+                                            priority={true}
+                                            className="rounded-full"
+                                        />
+                                    </Link>
+                                </>
+                            </div>
+                            <LogoutLink className="text-black text-lg">Sign out</LogoutLink>
+                        </div>
+                    ) : (
+                        <>
+                            <RegisterLink
+                                className={buttonVariants({
+                                    variant: "ghost",
+                                    size: "lg",
+                                    className: "font-semibold text-[17px] text-black hover:text-white shadow-xl"
+                                })}
+                            >
+                                Sign up
+                            </RegisterLink>
+                            <LoginLink
+                                className={buttonVariants({
+                                    size: "lg",
+                                    className:
+                                        "font-semibold text-[17px] hover:bg-gradient-to-r hover:from-gradientSecondary/30 hover:from-40% hover:to-gradientPrimary hover:duration-1000 shadow-xl"
+                                })}
+                            >
+                                Login
+                            </LoginLink>
+                        </>
+                    )}
+                </div>
                 {/* Mobile Menu Button */}
                 <button className="md:hidden text-gray-600 hover:text-gray-800 focus:outline-none">
                     <svg
