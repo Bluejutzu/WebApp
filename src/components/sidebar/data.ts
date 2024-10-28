@@ -12,15 +12,17 @@ import {
 } from "lucide-react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
-export const dataFetch = () => {
+export const DataFetch = () => {
     const { isAuthenticated, getUser } = useKindeBrowserClient();
     const userData = getUser();
 
     const data = {
         user: {
-            name: (isAuthenticated ? userData?.given_name : "Example") as string,
-            email: (isAuthenticated ? userData?.email : "Example") as string,
-            avatar: (isAuthenticated ? userData?.picture : "Example") as string,
+            name: (isAuthenticated ? userData?.given_name : "Login to access data") as string,
+            email: (isAuthenticated ? userData?.email : "") as string,
+            avatar: (isAuthenticated ? userData?.picture : "") as string,
+            id: (isAuthenticated ? userData?.id : "") as string,
+            isAuth: isAuthenticated as boolean
         },
         teams: [
             {

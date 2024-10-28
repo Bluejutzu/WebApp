@@ -1,30 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { buttonVariants } from "@/components/ui/button";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
-
-let user: KindeUser<Record<string, string>> | null;
+import { useEffect, useRef } from "react";
 
 const Header = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const { toast } = useToast();
-    let canShowToast: boolean = false;
-
-    const { getUser } = useKindeBrowserClient();
-    user = getUser();
-
-    canShowToast = searchParams.get("toast") === "unauthorized";
+    const canShowToast = useRef(false);
 
     useEffect(() => {
-        if (canShowToast) {
+        canShowToast.current = searchParams.get("toast") === "unauthorized";
+        console.log(canShowToast.current);
+        if (canShowToast.current) {
             toast({
                 title: "Access Denied",
                 description: "You are not authorized to access this page."
@@ -32,12 +22,12 @@ const Header = () => {
             console.log("Toast shown");
 
             router.replace("/");
-            canShowToast = false;
+            canShowToast.current = false;
         }
-    }, [canShowToast, toast]);
+    }, [canShowToast, toast, router, searchParams]);
 
     return (
-        <header className="w-full h-20 bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none rounded-bl-none">
+        <header className="w-full h-16 bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none rounded-bl-none">
             <div className="container mx-auto flex items-center justify-between py-4 px-6">
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600">
@@ -46,59 +36,15 @@ const Header = () => {
                 </Link>
 
                 {/* Navigation Links */}
-                <nav className="hidden md:flex space-x-8 font-extrabold text-lg">
+                <nav className="hidden md:flex space-x-8 font-bold text-lg">
                     <Link href="/" className="text-black hover:text-zinc-700 hover:underline duration-300">
                         Home
                     </Link>
-                    <Link href="/about" className="text-black hover:text-zinc-700 duration-300 hover:underline">
+                    <Link href="/" className="text-black hover:text-zinc-700 duration-300 hover:underline">
                         About
                     </Link>
                 </nav>
 
-                {/* CTA Button */}
-                <div className="flex-wrap space-x-4 text-lg font-semibold">
-                    {user?.id ? (
-                        <div className="flex wrap space-x-2">
-                            <div>
-                                <>
-                                    <Link href={`/dashboard/${user?.id}`}>
-                                        <Image
-                                            src={`${user?.picture}`}
-                                            alt={`${user?.given_name}_profile`}
-                                            width={40}
-                                            height={40}
-                                            priority={true}
-                                            className="rounded-full"
-                                        />
-                                    </Link>
-                                </>
-                            </div>
-                            <LogoutLink className="text-black text-lg">Sign out</LogoutLink>
-                        </div>
-                    ) : (
-                        <>
-                            <RegisterLink
-                                className={buttonVariants({
-                                    variant: "ghost",
-                                    size: "lg",
-                                    className:
-                                        "font-semibold text-[17px] text-black hover:text-white hover:font-bold shadow-xl"
-                                })}
-                            >
-                                Sign up
-                            </RegisterLink>
-                            <LoginLink
-                                className={buttonVariants({
-                                    size: "lg",
-                                    className:
-                                        "font-semibold text-[17px] hover:text-white hover:font-bold hover:bg-gradient-to-r hover:from-gradientSecondary/30 hover:from-40% hover:to-gradientPrimary hover:duration-150 shadow-xl"
-                                })}
-                            >
-                                Login
-                            </LoginLink>
-                        </>
-                    )}
-                </div>
                 {/* Mobile Menu Button */}
                 <button className="md:hidden text-gray-600 hover:text-gray-800 focus:outline-none">
                     <svg

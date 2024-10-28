@@ -2,13 +2,13 @@
 
 import * as React from "react";
 
-import { dataFetch } from "./data";
+import { DataFetch } from "./data";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "../ui/sidebar";
 import { NavUser } from "./nav-user";
 import { NavMain } from "./nav-main";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const data = dataFetch();
+    const data = DataFetch();
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader></SidebarHeader>

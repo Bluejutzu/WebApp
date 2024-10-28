@@ -29,9 +29,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}>
-                <SidebarProvider>
+                <SidebarProvider defaultOpen={false}>
                     <AppSidebar />
-                    <SidebarTrigger className="absolute right-[-.01px] bg-black rounded-tr-none" /> {children}{" "}
+                    <SidebarTrigger className="absolute right-[-.01px] bg-black rounded-tr-none z-50" /> {children}{" "}
                     <Toaster />
                 </SidebarProvider>
             </body>
