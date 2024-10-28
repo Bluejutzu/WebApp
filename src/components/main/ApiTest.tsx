@@ -10,17 +10,16 @@ const AxiosComponent = () => {
     const [res, setRes] = useState(null);
 
     const handleOnClick = () => {
-
         const BASE_URL = IS_DEV ? "http://localhost:3000" : "https://bluejutzu.deno.dev";
 
         axios
             .get(BASE_URL + "/api")
             .then(response => {
-                setRes(response.data)
+                setRes(response.data);
                 console.log(response.data);
             })
             .catch(error => {
-                setRes(error.message)
+                setRes(error.message);
                 console.log(error.message);
             });
     };

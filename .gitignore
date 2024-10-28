@@ -37,4 +37,6 @@ next-env.d.ts
 
 # environment variables
 .env*
-.env.local*
+
+src/app/dev/*
+src/components/dev*
