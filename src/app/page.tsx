@@ -42,7 +42,7 @@ export default function Home() {
 
             router.replace("/");
         }
-    }, [searchParams]);
+    }, [searchParams, router, toast]);
 
     return (
         <header className="bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none">
@@ -50,7 +50,7 @@ export default function Home() {
                 {/* Logo */}
                 <Suspense fallback={<Loading />}>
                     <Link href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600">
-                    MyLogo
+                        MyLogo
                         {/*<Image src={"https://raw.githubusercontent.com/Vencord/Vesktop/refs/heads/main/static/shiggy.gif"} unoptimized={true} alt="Logo" width={60} height={60}/> */}
                     </Link>
 
