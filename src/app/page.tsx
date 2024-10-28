@@ -17,6 +17,7 @@ export default function Home() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const { toast } = useToast();
+    let canShowToast: boolean = false;
 
     const IS_DEV = process.env.NEXT_PUBLIC_ENVIRONMENT === "development";
 
@@ -32,8 +33,9 @@ export default function Home() {
         //console.log(user);
     }
 
+    canShowToast = searchParams.get("toast") === "unauthorized";
     useEffect(() => {
-        if (searchParams.get("toast") === "unauthorized") {
+        if (canShowToast) {
             toast({
                 title: "Access Denied",
                 description: "You are not authorized to access this page."
@@ -41,8 +43,9 @@ export default function Home() {
             console.log("Toast shown");
 
             router.replace("/");
-        }
-    }, [searchParams, router, toast]);
+            canShowToast = false;
+        };
+    }, [canShowToast, router, toast]);
 
     return (
         <header className="bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none">
