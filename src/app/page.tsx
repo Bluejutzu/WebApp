@@ -6,39 +6,64 @@ import { buttonVariants } from "@/components/ui/button";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { Suspense, useEffect } from "react";
+import Loading from "./loading";
 
 let user: KindeUser<Record<string, string>> | null;
 
 export default function Home() {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const { toast } = useToast();
+
     const IS_DEV = process.env.NEXT_PUBLIC_ENVIRONMENT === "development";
 
     if (IS_DEV) {
-        console.log("Running in development mode");
+        //console.log("Running in development mode");
     } else {
-        console.log("Running in production mode");
+        //console.log("Running in production mode");
     }
+
     const { isAuthenticated, getUser } = useKindeBrowserClient();
     if (isAuthenticated) {
         user = getUser();
-        console.log(user);
+        //console.log(user);
     }
+
+    useEffect(() => {
+        if (searchParams.get("toast") === "unauthorized") {
+            toast({
+                title: "Access Denied",
+                description: "You are not authorized to access this page."
+            });
+            console.log("Toast shown");
+
+            router.replace("/");
+        }
+    }, [searchParams]);
+
     return (
         <header className="bg-gradient-to-r from-gradientPrimary from-80% to-gradientSecondary shadow-md rounded-md rounded-tr-none rounded-tl-none">
             <div className="container mx-auto flex items-center justify-between py-4 px-6">
                 {/* Logo */}
-                <Link href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600">
+                <Suspense fallback={<Loading />}>
+                    <Link href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600">
                     MyLogo
-                </Link>
+                        {/*<Image src={"https://raw.githubusercontent.com/Vencord/Vesktop/refs/heads/main/static/shiggy.gif"} unoptimized={true} alt="Logo" width={60} height={60}/> */}
+                    </Link>
 
-                {/* Navigation Links */}
-                <nav className="hidden md:flex space-x-8 font-extrabold text-lg">
-                    <Link href="/" className="text-black hover:text-zinc-700 hover:underline duration-300">
-                        Home
-                    </Link>
-                    <Link href="/about" className="text-black hover:text-zinc-700 duration-300 hover:underline">
-                        About
-                    </Link>
-                </nav>
+                    {/* Navigation Links */}
+                    <nav className="hidden md:flex space-x-8 font-extrabold text-lg">
+                        <Link href="/" className="text-black hover:text-zinc-700 hover:underline duration-300">
+                            Home
+                        </Link>
+                        <Link href="/about" className="text-black hover:text-zinc-700 duration-300 hover:underline">
+                            About
+                        </Link>
+                    </nav>
+                </Suspense>
 
                 {/* CTA Button */}
                 <div className="flex-wrap space-x-4 text-lg font-semibold">
@@ -50,8 +75,8 @@ export default function Home() {
                                         <Image
                                             src={`${user?.picture}`}
                                             alt={`${user?.given_name}_profile`}
-                                            width={80}
-                                            height={80}
+                                            width={40}
+                                            height={40}
                                             priority={true}
                                             className="rounded-full"
                                         />
@@ -66,7 +91,8 @@ export default function Home() {
                                 className={buttonVariants({
                                     variant: "ghost",
                                     size: "lg",
-                                    className: "font-semibold text-[17px] text-black hover:text-white shadow-xl"
+                                    className:
+                                        "font-semibold text-[17px] text-black hover:text-white hover:font-bold shadow-xl"
                                 })}
                             >
                                 Sign up
@@ -75,7 +101,7 @@ export default function Home() {
                                 className={buttonVariants({
                                     size: "lg",
                                     className:
-                                        "font-semibold text-[17px] hover:bg-gradient-to-r hover:from-gradientSecondary/30 hover:from-40% hover:to-gradientPrimary hover:duration-1000 shadow-xl"
+                                        "font-semibold text-[17px] hover:text-white hover:font-bold hover:bg-gradient-to-r hover:from-gradientSecondary/30 hover:from-40% hover:to-gradientPrimary hover:duration-150 shadow-xl"
                                 })}
                             >
                                 Login
