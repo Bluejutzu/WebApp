@@ -23,8 +23,9 @@ const nextConfig = {
             }
         ]
     },
-    experimental: {
-        reactCompiler: true
+    webpack: c => {
+        c.experiments = { ...c.experiments, topLevelAwait: true };
+        return c;
     }
 };
 
