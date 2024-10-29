@@ -5,8 +5,6 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const awaitTimeout = async (delay: number, reason?: string) => {
-    new Promise<void>((resolve, reject) =>
-        setTimeout(() => (reason === undefined ? resolve() : reject(reason)), delay)
-    );
-};
+export function delay(ms: number) {
+    new Promise(resolve => resolve(ms));
+}
