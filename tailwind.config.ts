@@ -65,10 +65,6 @@ const config: Config = {
                     ring: "hsl(var(--sidebar-ring))"
                 }
             },
-            spacing: {
-                cardWidth: "300px",
-                cardHeight: "260px"
-            },
             borderRadius: {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
