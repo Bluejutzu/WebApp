@@ -1,4 +1,4 @@
 {
     "css.customData": [".vscode/tailwind.json"],
-    "deno.enable": false
+    "deno.enable": false,
 }
