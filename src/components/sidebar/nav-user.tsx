@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
+import { BadgeCheck, Bell, ChevronsUpDown, LogOut, Sparkles } from "lucide-react";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import {
     DropdownMenu,
@@ -14,6 +14,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+
+const IS_DEV = process.env.NEXT_PUBLIC_ENVIRONMENT === "development";
 
 export function NavUser({
     user
@@ -71,24 +73,23 @@ export function NavUser({
                             <DropdownMenuGroup>
                                 <DropdownMenuItem>
                                     <Sparkles />
-                                    Upgrade to Pro
+                                    <Link className="w-full" href={IS_DEV ? "/dev/pricing" : "/pricing"}>
+                                        Upgrade to Pro
+                                    </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
                                 <DropdownMenuItem>
                                     <BadgeCheck />
-                                    <Link
-                                        className="w-full"
-                                        href={`/dashboard/${user.id}`}
-                                    >
-                                        Account
+                                    <Link className="w-full" href={`/dashboard/${user.id}`}>
+                                        Settings
                                     </Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                {/*                       <DropdownMenuItem>
                                     <CreditCard />
                                     Billing
-                                </DropdownMenuItem>
+                                </DropdownMenuItem> */}
                                 <DropdownMenuItem>
                                     <Bell />
                                     Notifications

@@ -12,11 +12,11 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
       '@kinde-oss/kinde-auth-nextjs':
-        specifier: ^2.4.3
-        version: 2.4.3(@babel/core@7.26.0)(next@15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@prisma/client':
-        specifier: ^5.21.1
-        version: 5.21.1(prisma@5.21.1)
+        specifier: ^2.4.4
+        version: 2.4.4(@babel/core@7.26.0)(next@15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@kinde/management-api-js':
+        specifier: ^0.10.0
+        version: 0.10.0
       '@radix-ui/react-avatar':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -69,14 +69,8 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5
       lucide-react:
-        specifier: ^0.453.0
-        version: 0.453.0(react@18.3.1)
-      next:
-        specifier: 15.0.1
-        version: 15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      prisma:
-        specifier: ^5.21.1
-        version: 5.21.1
+        specifier: ^0.454.0
+        version: 0.454.0(react@18.3.1)
       react:
         specifier: ^18
         version: 18.3.1
@@ -89,10 +83,19 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.14)
+      vaul:
+        specifier: ^1.1.0
+        version: 1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.1.0
+        version: 3.1.0
+      '@eslint/js':
+        specifier: ^9.13.0
+        version: 9.13.0
       '@types/node':
         specifier: ^22
         version: 22.8.1
@@ -108,6 +111,9 @@ importers:
       eslint-config-next:
         specifier: 15.0.1
         version: 15.0.1(eslint@9.13.0(jiti@1.21.6))(typescript@5.6.3)
+      next:
+        specifier: 15.0.1
+        version: 15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       postcss:
         specifier: ^8
         version: 8.4.47
@@ -828,8 +834,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@kinde-oss/kinde-auth-nextjs@2.4.3':
-    resolution: {integrity: sha512-k2QfxbtUrA7H+luIQ1F0ULw7Xc0uzfpUXfhM1oFRqCbowL6YmStuvhAr5xp527rzbdRlh/8tEbQf72rmyYgSHg==}
+  '@kinde-oss/kinde-auth-nextjs@2.4.4':
+    resolution: {integrity: sha512-2QNElqr38KuYBmZK7JEf3XMFO1UT7L+g36t/7SD7JHIIZCIqrC7hjdoaq1G+xaiyPILKnFPLTc0O1F2tCcAsFg==}
     peerDependencies:
       next: ^12.2.5 || ^13 || ^14 || ^15
       react: ^18 || ^19
@@ -840,6 +846,9 @@ packages:
 
   '@kinde/jwt-decoder@0.2.0':
     resolution: {integrity: sha512-dqtwCmAvywOVLkkUfp4UbqdvVLsK0cvHsJhU3gDY9rgjAdZhGw0vCreBW6j3MFLxbi6cZm7pMU7/O5SJgvN5Rw==}
+
+  '@kinde/management-api-js@0.10.0':
+    resolution: {integrity: sha512-kz/rdmB1sTCOwUNYMwu1n2mxJRayzxle4koTBFLRM1zTxLz1RPBqBxlYTe3qHHVnu4uqGVXZMJziq6gjUUYjAA==}
 
   '@next/env@15.0.1':
     resolution: {integrity: sha512-lc4HeDUKO9gxxlM5G2knTRifqhsY6yYpwuHspBZdboZe0Gp+rZHBNNSIjmQKDJIdRXiXGyVnSD6gafrbQPvILQ==}
@@ -914,30 +923,6 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
-
-  '@prisma/client@5.21.1':
-    resolution: {integrity: sha512-3n+GgbAZYjaS/k0M03yQsQfR1APbr411r74foknnsGpmhNKBG49VuUkxIU6jORgvJPChoD4WC4PqoHImN1FP0w==}
-    engines: {node: '>=16.13'}
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-
-  '@prisma/debug@5.21.1':
-    resolution: {integrity: sha512-uY8SAhcnORhvgtOrNdvWS98Aq/nkQ9QDUxrWAgW8XrCZaI3j2X7zb7Xe6GQSh6xSesKffFbFlkw0c2luHQviZA==}
-
-  '@prisma/engines-version@5.21.1-1.bf0e5e8a04cada8225617067eaa03d041e2bba36':
-    resolution: {integrity: sha512-qvnEflL0//lh44S/T9NcvTMxfyowNeUxTunPcDfKPjyJNrCNf2F1zQLcUv5UHAruECpX+zz21CzsC7V2xAeM7Q==}
-
-  '@prisma/engines@5.21.1':
-    resolution: {integrity: sha512-hGVTldUkIkTwoV8//hmnAAiAchi4oMEKD3aW5H2RrnI50tTdwza7VQbTTAyN3OIHWlK5DVg6xV7X8N/9dtOydA==}
-
-  '@prisma/fetch-engine@5.21.1':
-    resolution: {integrity: sha512-70S31vgpCGcp9J+mh/wHtLCkVezLUqe/fGWk3J3JWZIN7prdYSlr1C0niaWUyNK2VflLXYi8kMjAmSxUVq6WGQ==}
-
-  '@prisma/get-platform@5.21.1':
-    resolution: {integrity: sha512-sRxjL3Igst3ct+e8ya/x//cDXmpLbZQ5vfps2N4tWl4VGKQAmym77C/IG/psSMsQKszc8uFC/q1dgmKFLUgXZQ==}
 
   '@radix-ui/primitive@1.1.0':
     resolution: {integrity: sha512-4Z8dn6Upk0qk4P74xBhZ6Hd/w0mPEzOOLxy4xiPXOXqjF7jZS0VAKk7/x/H6FyY2zCkYJqePf1G5KmkmNJ4RBA==}
@@ -1532,6 +1517,10 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
+  aws-jwt-verify@4.0.1:
+    resolution: {integrity: sha512-kzvi71eD3w/mCpYRUY7cz6DX4bfYihGdI2yV3FYQ2JuZZenqAqDPz0gWj0ew6vlAtdEVBNb7p+Dm2TAIxpVYMA==}
+    engines: {node: '>=14.0.0'}
+
   axe-core@4.10.2:
     resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
     engines: {node: '>=4'}
@@ -1743,6 +1732,10 @@ packages:
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
+
+  dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -2312,8 +2305,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.453.0:
-    resolution: {integrity: sha512-kL+RGZCcJi9BvJtzg2kshO192Ddy9hv3ij+cPrVPWSRzgCWCVazoQJxOjAwgK53NomL07HB7GPHW120FimjNhQ==}
+  lucide-react@0.454.0:
+    resolution: {integrity: sha512-hw7zMDwykCLnEzgncEEjHeA6+45aeEzRYuKHuyRSOPkhko+J3ySGjGIzu+mmMfDFG1vazHepMaYFYHbTFAZAAQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
 
@@ -2530,11 +2523,6 @@ packages:
   pretty-format@24.9.0:
     resolution: {integrity: sha512-00ZMZUiHaJrNfk33guavqgvfJS30sLYf0f8+Srklv0AMPodGGHcoHgksZ3OThYnIvOd+8yMCn0YiEOogjlgsnA==}
     engines: {node: '>= 6'}
-
-  prisma@5.21.1:
-    resolution: {integrity: sha512-PB+Iqzld/uQBPaaw2UVIk84kb0ITsLajzsxzsadxxl54eaU5Gyl2/L02ysivHxK89t7YrfQJm+Ggk37uvM70oQ==}
-    engines: {node: '>=16.13'}
-    hasBin: true
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2918,6 +2906,12 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  vaul@1.1.0:
+    resolution: {integrity: sha512-YhO/bikcauk48hzhMhvIvT+U87cuCbNbKk9fF4Ou5UkI9t2KkBMernmdP37pCzF15hrv55fcny1YhexK8h6GVQ==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
 
   which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
@@ -3829,7 +3823,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@kinde-oss/kinde-auth-nextjs@2.4.3(@babel/core@7.26.0)(next@15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@kinde-oss/kinde-auth-nextjs@2.4.4(@babel/core@7.26.0)(next@15.0.1(@babel/core@7.26.0)(babel-plugin-react-compiler@19.0.0-beta-8a03594-20241020)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@kinde-oss/kinde-typescript-sdk': 2.9.1
@@ -3850,6 +3844,12 @@ snapshots:
       uncrypto: 0.1.3
 
   '@kinde/jwt-decoder@0.2.0': {}
+
+  '@kinde/management-api-js@0.10.0':
+    dependencies:
+      '@kinde/jwt-decoder': 0.2.0
+      aws-jwt-verify: 4.0.1
+      dotenv: 16.4.5
 
   '@next/env@15.0.1': {}
 
@@ -3897,31 +3897,6 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
-
-  '@prisma/client@5.21.1(prisma@5.21.1)':
-    optionalDependencies:
-      prisma: 5.21.1
-
-  '@prisma/debug@5.21.1': {}
-
-  '@prisma/engines-version@5.21.1-1.bf0e5e8a04cada8225617067eaa03d041e2bba36': {}
-
-  '@prisma/engines@5.21.1':
-    dependencies:
-      '@prisma/debug': 5.21.1
-      '@prisma/engines-version': 5.21.1-1.bf0e5e8a04cada8225617067eaa03d041e2bba36
-      '@prisma/fetch-engine': 5.21.1
-      '@prisma/get-platform': 5.21.1
-
-  '@prisma/fetch-engine@5.21.1':
-    dependencies:
-      '@prisma/debug': 5.21.1
-      '@prisma/engines-version': 5.21.1-1.bf0e5e8a04cada8225617067eaa03d041e2bba36
-      '@prisma/get-platform': 5.21.1
-
-  '@prisma/get-platform@5.21.1':
-    dependencies:
-      '@prisma/debug': 5.21.1
 
   '@radix-ui/primitive@1.1.0': {}
 
@@ -4540,6 +4515,8 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
+  aws-jwt-verify@4.0.1: {}
+
   axe-core@4.10.2: {}
 
   axios@1.7.7:
@@ -4763,6 +4740,8 @@ snapshots:
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
+
+  dotenv@16.4.5: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -5448,7 +5427,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.453.0(react@18.3.1):
+  lucide-react@0.454.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
@@ -5654,12 +5633,6 @@ snapshots:
       ansi-regex: 4.1.1
       ansi-styles: 3.2.1
       react-is: 16.13.1
-
-  prisma@5.21.1:
-    dependencies:
-      '@prisma/engines': 5.21.1
-    optionalDependencies:
-      fsevents: 2.3.3
 
   prop-types@15.8.1:
     dependencies:
@@ -6121,6 +6094,15 @@ snapshots:
       '@types/react': 18.3.12
 
   util-deprecate@1.0.2: {}
+
+  vaul@1.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@radix-ui/react-dialog': 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
 
   which-boxed-primitive@1.0.2:
     dependencies:
