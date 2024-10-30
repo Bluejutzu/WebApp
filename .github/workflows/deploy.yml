@@ -1,51 +1,44 @@
 name: Deploy
 on:
-    push:
-        branches: master
-    pull_request:
-        branches: master
+  push:
+    branches: master
+  pull_request:
+    branches: master
 
 jobs:
-    deploy:
-        name: Deploy
-        runs-on: ubuntu-latest
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
 
-        permissions:
-            id-token: write # Needed for auth with Deno Deploy
-            contents: read # Needed to clone the repository
+    permissions:
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
 
-        steps:
-            - name: Clone repository
-              uses: actions/checkout@v4
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
 
-            - name: Install Deno
-              uses: denoland/setup-deno@v2
-              with:
-                  deno-version: v1.x
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v1.x
 
-            - name: Install Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: lts/*
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
-            - name: Install step
-              run: "npm install"
+      - name: Install step
+        run: "npm install"
 
-            - name: Build step
-              run: "npm run build && (cp -r .next/static .next/standalone/.next/static; mv .next/standalone/server.js .next/standalone/server.cjs)"
-              env:
-                  KINDE_ISSUER_URL: ${{ secrets.KINDE_ISSUER_URL }}
-                  KINDE_CLIENT_SECRET: ${{ secrets.KINDE_CLIENT_SECRET }}
-                  KINDE_CLIENT_ID: ${{secrets.KINDE_CLIENT_ID}}
-                  KINDE_DOMAIN: ${{ secrets.KINDE_DOMAIN }}
-                  KINDE_MANAGEMENT_CLIENT_ID: ${{secrets.KINDE_MANAGEMENT_CLIENT_ID}}
-                  KINDE_MANAGEMENT_CLIENT_SECRET: ${{ secrets.KINDE_MANAGEMENT_CLIENT_SECRET }}
-                  KINDE_POST_LOGIN_REDIRECT_URL: ${{ secrets.KINDE_POST_LOGIN_REDIRECT_URL }}
-                  KINDE_POST_LOGOUT_REDIRECT_URL: ${{ secrets.KINDE_POST_LOGOUT_REDIRECT_URL }}
-                  KINDE_SITE_URL: ${{ secrets.KINDE_SITE_URL }}
-            - name: Upload to Deno Deploy
-              uses: denoland/deployctl@v1
-              with:
-                  project: "bluejutzu"
-                  entrypoint: "./server.cjs"
-                  root: ".next/standalone"
+      - name: Build step
+        run: "npm run build && (cp -r .next/static .next/standalone/.next/static; mv .next/standalone/server.js .next/standalone/server.cjs)"
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "bluejutzu"
+          entrypoint: "./server.cjs"
+          root: ".next/standalone"
+          
+          
