@@ -9,9 +9,13 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-    const { refreshTokens } = getKindeServerSession();
+    const { refreshTokens, getPermission } = getKindeServerSession();
+    const perms = await getPermission("access_dev");
+
+    if (!perms?.isGranted) return NextResponse.json("failed", { status: 401, statusText: "unauthorized" });
+
     const res = (await request.json()) as UpdateUserData;
-    
+
     console.log(res);
     await refreshTokens();
     return NextResponse.json("guess it worked");

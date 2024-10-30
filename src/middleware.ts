@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
     const isAuth = await isAuthenticated();
 
     const url = req.nextUrl.clone();
-    const match = url.pathname.match(/\/kp_([a-f0-9]{32})/);
+    const match = url.pathname.match(/\/(kp_[a-f0-9]{32})/);
 
     /* Dev route "/dev/**" */
     if (/^\/dev(\/|$)/.test(url.pathname) && isAuth) {
@@ -27,14 +27,17 @@ export async function middleware(req: NextRequest) {
         url.searchParams.set("isAuth", isAuthenticated);
 
         return NextResponse.redirect(url);
+        
     } else if (match) {
         const requestId = match[1];
-        
-        url.pathname = "/";
-        url.searchParams.set("toast", "unauthorized");
-        url.searchParams.set("id", `${requestId}:${user.id}`);
 
-        return NextResponse.redirect(url);
+        if (requestId !== user.id) {
+            url.pathname = "/";
+            url.searchParams.set("toast", "unauthorized");
+            url.searchParams.set("id", `${requestId}:${user.id}`);
+            console.log(requestId, user.id);
+            return NextResponse.redirect(url);
+        }
     }
 
     return NextResponse.next();

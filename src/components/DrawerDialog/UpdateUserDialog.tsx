@@ -28,6 +28,8 @@ import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { UpdateUserData } from "@kinde/management-api-js";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { userSchema } from "@/types/userschema";
+import { logToServer } from "@/app/actions";
 
 const IS_DEV = process.env.NEXT_PUBLIC_ENVIRONMENT === "development";
 const BASE_URL = IS_DEV ? "http://localhost:3000" : "https://bluejutzu.deno.dev";
@@ -80,13 +82,37 @@ export function UpdateUser() {
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
     const res = React.useRef("");
+    const allow = React.useRef(false);
     const username = React.useRef("");
 
     const { getUser } = useKindeBrowserClient();
     const user = getUser();
 
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        username.current = e.target.value;
+        const changeValidation = userSchema.safeParse(username.current);
+
+        if (!changeValidation.success) {
+            allow.current = false;
+            res.current = changeValidation.error.errors[0].message;
+            logToServer("Invalid onChange: ", res.current, allow.current);
+        }
+
+        allow.current = true;
+    };
+
     const handleOnClick = () => {
-        if (user?.id) {
+        const submitValidation = userSchema.safeParse(username.current);
+
+        if (!submitValidation.success) {
+            allow.current = false;
+            res.current = submitValidation.error.errors[0].message;
+            logToServer("Invalid username: ", res.current, allow.current);
+            return;
+        }
+        allow.current = true;
+
+        if (user?.id && allow.current) {
             const inputbody: UpdateUserData = {
                 id: user.id,
                 requestBody: {
@@ -106,18 +132,17 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
         } else {
             res.current = "User ID missing";
         }
-        console.log(res.current);
+        allow.current = false;
+        logToServer("Post-request: ", res.current, allow.current);
     };
 
     return (
-        <form onSubmit={handleOnClick} className={cn("grid items-start gap-4", className)}>
+        <form className={cn("grid items-start gap-4", className)}>
             <div className="grid gap-2">
                 <Label htmlFor="username">Username</Label>
-                <Input onChange={e => (username.current = e.target.value)} id="username" defaultValue="@shadcn" />
+                <Input onChange={handleOnChange} id="username" defaultValue="@shadcn" />
             </div>
-            <Button type="submit">
-                Save changes
-            </Button>
+            <Button onClick={handleOnClick}>Save changes</Button>
             <div>{res.current ? res.current : "No response yet"}</div>
         </form>
     );
